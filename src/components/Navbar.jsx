@@ -1,13 +1,12 @@
-import { Link,useLocation,} from "react-router-dom";
+import {
+  Link,
+  useLocation,
+} from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import { useState } from "react";
 
 const Navbar = () => {
   const location = useLocation();
-
-  const [menuOpen, setMenuOpen] =
-    useState(false);
 
   const watchlist = useSelector(
     (state) => state.watchlist.movies
@@ -24,7 +23,7 @@ const Navbar = () => {
           CineVault
         </Link>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="flex items-center gap-5 md:gap-8">
           <Link
             to="/"
             className={`text-sm font-semibold transition hover:text-white ${
@@ -53,52 +52,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <button
-          onClick={() =>
-            setMenuOpen(!menuOpen)
-          }
-          className="text-2xl text-white md:hidden"
-        >
-          ☰
-        </button>
       </nav>
-
-      {menuOpen && (
-        <div className="absolute left-0 top-full z-50 flex w-full flex-col gap-5 border-t border-zinc-800 bg-black/95 px-4 py-5 backdrop-blur-xl md:hidden">
-          <Link
-            to="/"
-            onClick={() =>
-              setMenuOpen(false)
-            }
-            className={`text-sm font-semibold ${
-              location.pathname === "/"
-                ? "text-white"
-                : "text-zinc-400"
-            }`}
-          >
-            Discover
-          </Link>
-
-          <Link
-            to="/watchlist"
-            onClick={() =>
-              setMenuOpen(false)
-            }
-            className={`flex items-center gap-2 text-sm font-semibold ${
-              location.pathname ===
-              "/watchlist"
-                ? "text-white"
-                : "text-zinc-400"
-            }`}
-          >
-            Watchlist
-
-            <span className="rounded-full bg-white px-2 py-1 text-xs font-bold text-black">
-              {watchlist.length}
-            </span>
-          </Link>
-        </div>
-      )}
     </header>
   );
 };
