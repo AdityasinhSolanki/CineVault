@@ -13,32 +13,14 @@ import Wishlist from "./pages/Wishlist";
 const App = () => {
   return (
     <BrowserRouter>
-
       <div className="min-h-screen bg-black">
-
         <Navbar />
-
         <Routes>
-
-          <Route
-            path="/"
-            element={<Home />}
-          />
-
-          <Route
-            path="/movie/:id"
-            element={<MovieDetails />}
-          />
-
-          <Route
-            path="/watchlist"
-            element={<Wishlist />}
-          />
-
+          <Route path="/" element={<Home />}/>
+          <Route path="/movie/:id" element={<MovieDetails />}/>
+          <Route  path="/watchlist" element={<Wishlist />}/>         
         </Routes>
-
       </div>
-
     </BrowserRouter>
   );
 };
