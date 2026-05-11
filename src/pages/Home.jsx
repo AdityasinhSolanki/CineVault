@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 
 import {
-  getGenres,
-  getMoviesByGenre,
   getTrendingMovies,
   searchMovies,
 } from "../services/tmdb";
@@ -13,8 +11,6 @@ import useDebounce from "../hooks/useDebounce";
 const Home = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [genres, setGenres] = useState([]);
-  const [selectedGenre, setSelectedGenre] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -25,20 +21,7 @@ const Home = () => {
 
   useEffect(() => {
     setPage(1);
-  }, [debouncedQuery, selectedGenre]);
-
-  useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const data = await getGenres();
-        setGenres(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchGenres();
-  }, []);
+  }, [debouncedQuery]);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -51,11 +34,6 @@ const Home = () => {
         if (debouncedQuery.trim()) {
           data = await searchMovies(
             debouncedQuery,
-            page
-          );
-        } else if (selectedGenre) {
-          data = await getMoviesByGenre(
-            selectedGenre,
             page
           );
         } else {
@@ -75,7 +53,7 @@ const Home = () => {
     };
 
     fetchMovies();
-  }, [debouncedQuery, page, selectedGenre]);
+  }, [debouncedQuery, page]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -133,37 +111,6 @@ const Home = () => {
           />
         </div>
 
-        <div className="mb-10 flex gap-3 overflow-x-auto pb-2">
-          <button
-            onClick={() =>
-              setSelectedGenre(null)
-            }
-            className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition ${
-              selectedGenre === null
-                ? "bg-white text-black"
-                : "bg-zinc-900 text-zinc-300 hover:bg-zinc-800"
-            }`}
-          >
-            All
-          </button>
-
-          {genres.map((genre) => (
-            <button
-              key={genre.id}
-              onClick={() =>
-                setSelectedGenre(genre.id)
-              }
-              className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition ${
-                selectedGenre === genre.id
-                  ? "bg-white text-black"
-                  : "bg-zinc-900 text-zinc-300 hover:bg-zinc-800"
-              }`}
-            >
-              {genre.name}
-            </button>
-          ))}
-        </div>
-
         {error && (
           <div className="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-red-400">
             {error}
@@ -171,7 +118,7 @@ const Home = () => {
         )}
 
         {!error && (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+          <div className="mt- grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             {movies.map((movie, index) => (
               <MovieCard
                 key={`${movie.id}-${index}`}
