@@ -117,8 +117,8 @@ const Home = () => {
           </div>
         )}
 
-        {!error && (
-          <div className="mt- grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+       {!loading && !error && (
+          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             {movies.map((movie, index) => (
               <MovieCard
                 key={`${movie.id}-${index}`}
@@ -129,8 +129,27 @@ const Home = () => {
         )}
 
         {loading && (
-          <div className="flex justify-center py-16">
-            <div className="h-12 w-12 animate-spin rounded-full border-4 border-zinc-700 border-t-white"></div>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+
+            {[...Array(12)].map((_, index) => (
+
+              <div
+                key={index}
+                className="overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950"
+              >
+                <div className="aspect-[2/3] animate-pulse bg-zinc-800"></div>
+
+                <div className="space-y-3 p-3 md:p-4">
+                  <div className="h-4 w-3/4 animate-pulse rounded bg-zinc-800"></div>
+
+                  <div className="h-3 w-1/3 animate-pulse rounded bg-zinc-800"></div>
+
+                  <div className="h-10 w-full animate-pulse rounded-2xl bg-zinc-800"></div>
+                </div>
+              </div>
+
+            ))}
+
           </div>
         )}
       </div>
