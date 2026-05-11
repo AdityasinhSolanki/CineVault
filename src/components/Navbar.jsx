@@ -64,8 +64,7 @@ const Navbar = () => {
       </nav>
 
       {menuOpen && (
-        <div className="flex flex-col gap-5 border-t border-zinc-800 bg-black px-4 py-5 md:hidden">
-          
+        <div className="absolute left-0 top-full z-50 flex w-full flex-col gap-5 border-t border-zinc-800 bg-black/95 px-4 py-5 backdrop-blur-xl md:hidden">
           <Link
             to="/"
             onClick={() =>

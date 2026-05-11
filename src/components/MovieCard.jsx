@@ -23,6 +23,12 @@ const MovieCard = ({ movie }) => {
     (item) => item.id === movie.id
   );
 
+  const savedMovie = watchlist.find(
+    (item) => item.id === movie.id
+  );
+
+  const watched = savedMovie?.watched;
+
   const handleWatchlist = () => {
     if (exists) {
       dispatch(removeMovie(movie.id));
@@ -35,12 +41,20 @@ const MovieCard = ({ movie }) => {
     <div className="group overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950 transition-all duration-300 hover:-translate-y-1 hover:border-zinc-700">
       
       <Link to={`/movie/${movie.id}`}>
-        <div className="overflow-hidden">
+        <div className="relative overflow-hidden">
+          
           <img
             src={`${IMAGE_BASE_URL}${movie.poster_path}`}
             alt={movie.title}
             className="aspect-[2/3] w-full object-cover transition duration-500 group-hover:scale-105"
           />
+
+          {watched && (
+            <div className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-green-400 backdrop-blur-md">
+              Watched
+            </div>
+          )}
+
         </div>
       </Link>
 

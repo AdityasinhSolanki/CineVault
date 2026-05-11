@@ -11,20 +11,16 @@ const initialState = {
 
 const watchlistSlice = createSlice({
   name: "watchlist",
-
   initialState,
 
   reducers: {
-
     addMovie: (state, action) => {
-
       const exists = state.movies.find(
         (movie) =>
           movie.id === action.payload.id
       );
 
       if (!exists) {
-
         state.movies.push({
           ...action.payload,
           watched: false,
@@ -37,9 +33,7 @@ const watchlistSlice = createSlice({
       }
     },
 
-
     removeMovie: (state, action) => {
-
       state.movies = state.movies.filter(
         (movie) =>
           movie.id !== action.payload
@@ -51,16 +45,13 @@ const watchlistSlice = createSlice({
       );
     },
 
-
     toggleWatched: (state, action) => {
-
       const movie = state.movies.find(
         (movie) =>
           movie.id === action.payload
       );
 
       if (movie) {
-
         movie.watched = !movie.watched;
 
         localStorage.setItem(

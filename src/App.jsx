@@ -1,14 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
 import MovieDetails from "./pages/MovieDetails";
-import Wishlist from "./pages/Wishlist";
+import Watchlist from "./pages/Watchlist";
 
 const App = () => {
   return (
@@ -18,7 +14,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/movie/:id" element={<MovieDetails />}/>
-          <Route  path="/watchlist" element={<Wishlist />}/>         
+          <Route  path="/watchlist" element={<Watchlist />}/>         
         </Routes>
       </div>
     </BrowserRouter>
