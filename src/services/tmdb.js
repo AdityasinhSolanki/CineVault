@@ -24,26 +24,6 @@ export const getGenres = async () => {
 };
 
 
-// GET MOVIES BY GENRE
-
-export const getMoviesByGenre =
-  async (genreId, page = 1) => {
-
-    const response = await axios.get(
-      `${BASE_URL}/discover/movie`,
-      {
-        params: {
-          api_key: API_KEY,
-          with_genres: genreId,
-          page,
-        },
-      }
-    );
-
-    return response.data.results;
-  };
-
-
 // SEARCH MOVIES
 
 export const searchMovies = async (
