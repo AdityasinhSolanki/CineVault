@@ -6,22 +6,12 @@ const API_KEY =
 const BASE_URL =
   "https://api.themoviedb.org/3";
 
-
-// GET GENRES
-
-export const getGenres = async () => {
-
-  const response = await axios.get(
-    `${BASE_URL}/genre/movie/list`,
-    {
-      params: {
-        api_key: API_KEY,
-      },
-    }
-  );
-
-  return response.data.genres;
-};
+const api = axios.create({
+  baseURL: BASE_URL,
+  params: {
+    api_key: API_KEY,
+  },
+});
 
 
 // SEARCH MOVIES
@@ -31,11 +21,10 @@ export const searchMovies = async (
   page = 1
 ) => {
 
-  const response = await axios.get(
-    `${BASE_URL}/search/movie`,
+  const response = await api.get(
+    "/search/movie",
     {
       params: {
-        api_key: API_KEY,
         query,
         page,
       },
@@ -51,11 +40,10 @@ export const searchMovies = async (
 export const getTrendingMovies =
   async (page = 1) => {
 
-    const response = await axios.get(
-      `${BASE_URL}/trending/movie/week`,
+    const response = await api.get(
+      "/trending/movie/week",
       {
         params: {
-          api_key: API_KEY,
           page,
         },
       }
@@ -70,14 +58,35 @@ export const getTrendingMovies =
 export const getMovieDetails =
   async (id) => {
 
-    const response = await axios.get(
-      `${BASE_URL}/movie/${id}`,
-      {
-        params: {
-          api_key: API_KEY,
-        },
-      }
+    const response = await api.get(
+      `/movie/${id}`
     );
 
     return response.data;
+  };
+
+
+// SIMILAR MOVIES
+
+export const getSimilarMovies =
+  async (id) => {
+
+    const response = await api.get(
+      `/movie/${id}/similar`
+    );
+
+    return response.data.results;
+  };
+
+
+// MOVIE VIDEOS / TRAILERS
+
+export const getMovieVideos =
+  async (id) => {
+
+    const response = await api.get(
+      `/movie/${id}/videos`
+    );
+
+    return response.data.results;
   };
